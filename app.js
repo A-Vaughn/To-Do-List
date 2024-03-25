@@ -63,7 +63,7 @@ app.get('/list/descending', (req, res)=>{
 
     const data = req.params;
 
-    // Sort criteria to sort by dueDate in ascending order
+    // Sort criteria to sort by dueDate in descending order
     const sortCriteria = { dueDate: -1 };
 
     toDoList.find().sort(sortCriteria).toArray()
@@ -165,8 +165,8 @@ app.delete('/admin/remove/:id', (req, res)=>{
 
 })
 
-app.put('/admin/update/:id/', (req, res)=>{
-    //update a specific status task
+app.put('/admin/update/:id/status', (req, res)=>{
+    //update a specific task's status
     const data = req.params
     const docData = req.body
     const filter = {
