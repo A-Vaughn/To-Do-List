@@ -30,12 +30,16 @@ app.get('/', (req, res)=>{
     return res.status(202).send("<h1>To Do list App Backend.</h1>")
 })
 
-app.get('/list', (req, res)=>{
-    //route to show all tasks
+app.get('/list/public', (req, res)=>{
+    //route to show all public tasks
 
     const data = req.params
-    
-    toDoList.find().toArray()
+
+    const filter = {
+        "visibility" : "public"
+    }
+
+    toDoList.find(filter).toArray()
     .then(response=>{
         res.status(200).send(response)
     })
@@ -43,43 +47,127 @@ app.get('/list', (req, res)=>{
 
 })
 
-app.get('/list/ascending', (req, res)=>{
-    // Route to show all tasks in ascending order by due date
+app.get('/list/private', (req, res)=>{
+    //route to show all private tasks
 
-    const data = req.params;
+    const data = req.params
 
-    // Sort criteria to sort by dueDate in ascending order
-    const sortCriteria = { dueDate: 1 };
+    const filter = {
+        "visibility" : "private"
+    }
 
-    toDoList.find().sort(sortCriteria).toArray()
+    toDoList.find(filter).toArray()
     .then(response=>{
-        res.status(200).send(response);
+        res.status(200).send(response)
     })
-    .catch(err=>console.log(err));
-});
+    .catch(err=>console.log(err))
 
-app.get('/list/descending', (req, res)=>{
-    // Route to show all tasks in descending order by due date
+})
 
-    const data = req.params;
-
-    // Sort criteria to sort by dueDate in descending order
-    const sortCriteria = { dueDate: -1 };
-
-    toDoList.find().sort(sortCriteria).toArray()
-    .then(response=>{
-        res.status(200).send(response);
-    })
-    .catch(err=>console.log(err));
-});
-
-app.get('/list/completed', (req, res)=>{
-    // Route to show all completed tasks
+app.get('/list/public/ascending', (req, res)=>{
+    // Route to show all public tasks in ascending order by due date
 
     const data = req.params;
 
     const filter = {
-        "status" : "completed"
+        "visibility" : "public"
+    }
+
+    // Sort criteria to sort by dueDate in ascending order
+    const sortCriteria = { dueDate: 1 };
+
+    toDoList.find(filter).sort(sortCriteria).toArray()
+    .then(response=>{
+        res.status(200).send(response);
+    })
+    .catch(err=>console.log(err));
+});
+
+
+app.get('/list/private/ascending', (req, res)=>{
+    // Route to show all private tasks in ascending order by due date
+
+    const data = req.params;
+
+    const filter = {
+        "visibility" : "private"
+    }
+
+    // Sort criteria to sort by dueDate in ascending order
+    const sortCriteria = { dueDate: 1 };
+
+    toDoList.find(filter).sort(sortCriteria).toArray()
+    .then(response=>{
+        res.status(200).send(response);
+    })
+    .catch(err=>console.log(err));
+});
+
+
+app.get('/list/public/descending', (req, res)=>{
+    // Route to show all public tasks in descending order by due date
+
+    const data = req.params;
+
+    const filter = {
+        "visibility" : "public"
+    }
+
+    // Sort criteria to sort by dueDate in descending order
+    const sortCriteria = { dueDate: -1 };
+
+    toDoList.find(filter).sort(sortCriteria).toArray()
+    .then(response=>{
+        res.status(200).send(response);
+    })
+    .catch(err=>console.log(err));
+});
+
+app.get('/list/private/descending', (req, res)=>{
+    // Route to show all private tasks in descending order by due date
+
+    const data = req.params;
+
+    const filter = {
+        "visibility" : "private"
+    }
+
+    // Sort criteria to sort by dueDate in descending order
+    const sortCriteria = { dueDate: -1 };
+
+    toDoList.find(filter).sort(sortCriteria).toArray()
+    .then(response=>{
+        res.status(200).send(response);
+    })
+    .catch(err=>console.log(err));
+});
+
+
+app.get('/list/public/completed', (req, res)=>{
+    // Route to show all public completed tasks
+
+    const data = req.params;
+
+    const filter = {
+        "status" : "completed",
+        "visibility" : "public"
+    }
+
+    toDoList.find(filter).toArray()
+    .then(response=>{
+        res.status(200).send(response)
+    })
+    .catch(err=>console.log(err))
+});
+
+app.get('/list/private/completed', (req, res)=>{
+    // Route to show all private completed tasks
+
+    const data = req.params;
+
+    const filter = {
+        "status" : "completed",
+        "visibility" : "private"
     }
 
     toDoList.find(filter).toArray()
